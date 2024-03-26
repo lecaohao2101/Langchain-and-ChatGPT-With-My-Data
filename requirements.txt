@@ -75,3 +75,4 @@ zipp==3.16.2
 cloudinary
 pymongo
 cloudinary==1.39.1
+openai-whisper
