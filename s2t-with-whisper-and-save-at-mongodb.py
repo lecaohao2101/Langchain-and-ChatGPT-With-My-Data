@@ -8,7 +8,6 @@ from pymongo import MongoClient
 import openai
 import whisper
 
-# Load environment variables from .env file
 dotenv.load_dotenv()
 
 CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
@@ -17,19 +16,16 @@ CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 MONGO_URI = os.getenv("MONGO_URI")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Set Cloudinary configuration
 cloudinary.config(
     cloud_name=CLOUDINARY_CLOUD_NAME,
     api_key=CLOUDINARY_API_KEY,
     api_secret=CLOUDINARY_API_SECRET
 )
 
-# MongoDB connection
 client = MongoClient(MONGO_URI)
 db = client.transcripts
 transcript_collection = db.transcripts
 
-# Define functions
 def list_videos(next_cursor=None):
     result = cloudinary.api.resources(
         resource_type="video",
@@ -57,19 +53,16 @@ def remove_duplicates(video_urls):
     return unique_urls
 
 def transcribe_video(video_file_path):
-    # Load the Whisper model
     model = whisper.load_model("base")
 
-    # Transcribe the video file
     transcript = model.transcribe(video_file_path)
 
-    # Extract the transcript text
     transcript_text = transcript["text"]
 
     return transcript_text
 
 def main():
-    download_dir = "downloaded_videos"  # Temporary directory
+    download_dir = "downloaded_videos"
     os.makedirs(download_dir, exist_ok=True)
 
     next_cursor = None

@@ -5,20 +5,17 @@ import requests
 import os
 import dotenv
 
-# Load environment variables
 dotenv.load_dotenv()
 CLOUDINARY_CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
 CLOUDINARY_API_KEY = os.getenv("CLOUDINARY_API_KEY")
 CLOUDINARY_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 
-# Set Cloudinary configuration
 cloudinary.config(
     cloud_name=CLOUDINARY_CLOUD_NAME,
     api_key=CLOUDINARY_API_KEY,
     api_secret=CLOUDINARY_API_SECRET
 )
 
-# Define functions
 def list_videos(next_cursor=None):
     result = cloudinary.api.resources(
         resource_type="video",
@@ -47,7 +44,6 @@ def remove_duplicates(video_urls):
 
     return unique_urls
 
-# Main script
 download_dir = "downloaded_videos"
 os.makedirs(download_dir, exist_ok=True)
 

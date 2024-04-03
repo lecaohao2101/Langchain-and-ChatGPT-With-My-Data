@@ -76,4 +76,4 @@ cloudinary
 pymongo
 cloudinary==1.39.1
 openai-whisper
-av
+avf
